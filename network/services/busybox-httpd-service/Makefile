@@ -20,7 +20,7 @@ define Package/busybox-httpd-service
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
   TITLE:=BusyBox HTTPd - basic HTTP server
-  DEPENDS:=@BUSYBOX_CONFIG_HTTPD @CONFIG_BUSYBOX_CONFIG_FEATURE_HTTPD_CGI
+  DEPENDS:=@BUSYBOX_CONFIG_HTTPD @BUSYBOX_CONFIG_FEATURE_HTTPD_CGI
   PKGARCH:=all
 endef
 
