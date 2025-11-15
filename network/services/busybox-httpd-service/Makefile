@@ -30,7 +30,7 @@ endef
 
 define Package/busybox-httpd-service/conffiles
 /etc/httpd.conf
-/etc/config/busybox-httpd
+/etc/config/httpd
 endef
 
 define Build/Compile
@@ -41,7 +41,7 @@ define Package/busybox-httpd-service/install
 	$(INSTALL_BIN) ./files/etc/init.d/busybox-httpd $(1)/etc/init.d/busybox-httpd
 
 	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) ./files/etc/config/busybox-httpd $(1)/etc/config/busybox-httpd
+	$(INSTALL_CONF) ./files/etc/config/httpd $(1)/etc/config/httpd
 
 	$(INSTALL_DIR) $(1)/etc/
 	$(INSTALL_CONF) ./files/etc/httpd.conf $(1)/etc/httpd.conf

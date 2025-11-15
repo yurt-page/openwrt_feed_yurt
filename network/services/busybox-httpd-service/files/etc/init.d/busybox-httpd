@@ -39,7 +39,6 @@ service_triggers()
 }
 
 start_service() {
-	mkdir -p /var/run/busybox-httpd/
 	config_load httpd
 	config_foreach start_instance httpd
 }
