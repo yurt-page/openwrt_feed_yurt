@@ -26,11 +26,11 @@ httpd_instance()
 	procd_set_param respawn
 	procd_set_param stderr 1
 	procd_set_param command /usr/sbin/httpd -f
-	procd_append_param command -p $port
-	procd_append_param command -h $home
+	procd_append_param command -p "$port"
+	procd_append_param command -h "$home"
 	[ -z "$realm" ] && realm="$(cat /proc/sys/kernel/hostname)"
-	procd_append_param command -b "${BannerFile}"
-	[ -n "$c_file" ] && command -c $c_file
+	procd_append_param command -r "$realm"
+	[ -n "$c_file" ] && procd_append_param command -c "$c_file"
 	procd_close_instance
 }
 
