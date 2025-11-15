@@ -20,12 +20,12 @@ define Package/busybox-httpd-service
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
   TITLE:=BusyBox HTTPd - basic HTTP server
-  DEPENDS:=@BUSYBOX_CONFIG_HTTPD
+  DEPENDS:=@BUSYBOX_CONFIG_HTTPD @CONFIG_BUSYBOX_CONFIG_FEATURE_HTTPD_CGI
   PKGARCH:=all
 endef
 
 define Package/busybox-httpd-service/description
-  BusyBox HTTPd is a tiny single threaded HTTP server with support of basic features
+  BusyBox HTTP daemon is a tiny single threaded HTTP server with support of basic features
 endef
 
 define Package/busybox-httpd-service/conffiles
