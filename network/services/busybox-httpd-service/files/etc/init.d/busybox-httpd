@@ -3,33 +3,34 @@
 START=50
 USE_PROCD=1
 
-append_arg() {
-	local cfg="$1"
-	local var="$2"
-	local opt="$3"
-	local def="$4"
-	local val
-
-	config_get val "$cfg" "$var"
-	[ -n "$val" -o -n "$def" ] && procd_append_param command "$opt" "${val:-$def}"
+validate_section_httpd()
+{
+	uci_load_validate httpd httpd "$1" "$2" \
+		'enable:bool:1' \
+		'port:port:80' \
+		'home:directory:/www' \
+		'realm:string:or("", string)' \
+		'c_file:file:/etc/httpd.conf' \
 }
 
-start_instance()
+httpd_instance()
 {
 	local cfg="$1"
-	local enabled
-	config_get_bool enabled "$cfg" 'enabled' 1
-	[ "$enabled" -gt 0 ] || return
+	[ "$2" = 0 ] || {
+		echo "validation failed"
+		return 1
+	}
+	[ "${enable}" = "1" ] || return 1
 
-	local realm="$(cat /proc/sys/kernel/hostname)"
 	procd_open_instance "$cfg"
 	procd_set_param respawn
 	procd_set_param stderr 1
 	procd_set_param command /usr/sbin/httpd -f
-	append_arg "$cfg" port "-p"
-	append_arg "$cfg" home "-h"
-	append_arg "$cfg" realm "-r" "${realm}"
-	append_arg "$cfg" c_file "-c"
+	procd_append_param command -p $port
+	procd_append_param command -h $home
+	[ -z "$realm" ] && realm="$(cat /proc/sys/kernel/hostname)"
+	procd_append_param command -b "${BannerFile}"
+	[ -n "$c_file" ] && command -c $c_file
 	procd_close_instance
 }
 
@@ -40,5 +41,5 @@ service_triggers()
 
 start_service() {
 	config_load httpd
-	config_foreach start_instance httpd
+	config_foreach validate_section_httpd httpd httpd_instance
 }
