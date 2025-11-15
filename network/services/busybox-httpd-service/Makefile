@@ -7,7 +7,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=busybox-httpd-service
+PKG_NAME:=busybox-httpd
 PKG_VERSION:=1.2.1
 PKG_RELEASE:=1
 PKG_MAINTAINER:=Sergey Ponomarev <stokito@gmail.com>
@@ -15,7 +15,7 @@ PKG_LICENSE:=ISC
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/busybox-httpd-service
+define Package/busybox-httpd
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
@@ -24,11 +24,11 @@ define Package/busybox-httpd-service
   PKGARCH:=all
 endef
 
-define Package/busybox-httpd-service/description
+define Package/busybox-httpd/description
   BusyBox HTTP daemon is a tiny single threaded HTTP server with support of basic features
 endef
 
-define Package/busybox-httpd-service/conffiles
+define Package/busybox-httpd/conffiles
 /etc/httpd.conf
 /etc/config/httpd
 endef
@@ -36,7 +36,7 @@ endef
 define Build/Compile
 endef
 
-define Package/busybox-httpd-service/install
+define Package/busybox-httpd/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/busybox-httpd $(1)/etc/init.d/busybox-httpd
 
@@ -47,4 +47,4 @@ define Package/busybox-httpd-service/install
 	$(INSTALL_CONF) ./files/etc/httpd.conf $(1)/etc/httpd.conf
 endef
 
-$(eval $(call BuildPackage,busybox-httpd-service))
+$(eval $(call BuildPackage,busybox-httpd))

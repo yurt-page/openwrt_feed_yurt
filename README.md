@@ -14,4 +14,4 @@ Then run `make menuconfig` and enable
   * Recommended: `Support 'Ranges:' header`
   * Recommended: `Add Last-Modified header to response`
   * Recommended: `Enable HTTP authentication`
-* `Network / Web Servers/Proxies / busybox-httpd-service`.
+* `Network / Web Servers/Proxies / busybox-httpd`.
