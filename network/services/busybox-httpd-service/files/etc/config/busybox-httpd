@@ -1,8 +1,4 @@
-config busybox-httpd main
+config httpd main
 	option enabled 1
-	list listen_http 80
-#	list listen_http [::]:80
+	option port 80
 	option home /www
-	# Basic auth realm, defaults to local hostname
-	option realm ''
-	list config	'/etc/httpd.conf'
